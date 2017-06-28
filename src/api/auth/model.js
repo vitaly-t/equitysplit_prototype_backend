@@ -46,13 +46,7 @@ exports.add = (data) => {
                 return t.one(`
                     INSERT INTO public.user(email, password, person_id)
                     VALUES($1, $2, $3) RETURNING id
-                    `, [data.email, crypt.hash(data.password + config.secrets.salt), person.id]);
+                    `, [data.email, crypt.hash(data.password + config.secrets.salt), person.id], a => a.id);
             });
-    })
-    .then(res => {
-        return Promise.resolve(res.id);
-    })
-    .catch(err => {
-        return Promise.reject(err);
-    })
+    });
 };
