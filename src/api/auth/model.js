@@ -37,7 +37,7 @@ exports.findByEmail = (data) => {
 };
 
 exports.add = (data) => {
-    return db.tx(t => {
+    return db.tx('add-user', t => {
         return t.one(`
             INSERT INTO public.person(name, last_name, middle_name)
             VALUES($1, $2, $3) RETURNING id
